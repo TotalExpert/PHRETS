@@ -374,6 +374,8 @@ class Session
 
         $response = new \PHRETS\Http\Response($response);
 
+        $this->removeSessionCookieFile($options);
+
         $this->last_response = $response;
 
         if ($response->getHeader('Set-Cookie')) {
@@ -542,7 +544,7 @@ class Session
                 'Accept-Encoding' => 'gzip',
                 'Accept' => '*/*',
             ],
-            'curl' => [ CURLOPT_COOKIEFILE => tempnam('/tmp', 'phrets') ]
+            'curl' => [ CURLOPT_COOKIEFILE => tempnam($this->configuration->getTempDir(), 'phrets') ]
         ];
 
         // disable following 'Location' header (redirects) automatically
@@ -558,5 +560,13 @@ class Session
         /** @var Container $container */
         $container = $this->getConfiguration()->getStrategy()->getContainer();
         $container->instance($parser_name, $parser_object);
+    }
+
+    private function removeSessionCookieFile(array $options)
+    {
+        $tmpFile = $options['curl'][CURLOPT_COOKIEFILE];
+        if (file_exists($tmpFile)) {
+            unlink($tmpFile);
+        }
     }
 }

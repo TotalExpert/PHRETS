@@ -20,6 +20,7 @@ class Configuration
     protected $http_authentication = 'digest';
     /** @var \PHRETS\Strategies\Strategy */
     protected $strategy;
+    protected $temp_dir = '/tmp';
     protected $options = [];
 
     public function __construct()
@@ -253,5 +254,23 @@ class Configuration
     public function getHttpAuthenticationMethod()
     {
         return $this->http_authentication;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getTempDir()
+    {
+        return $this->temp_dir;
+    }
+
+    /**
+     * @param string $temp_dir
+     * @return $this
+     */
+    public function setTempDir($temp_dir)
+    {
+        $this->temp_dir = $temp_dir;
+        return $this;
     }
 }

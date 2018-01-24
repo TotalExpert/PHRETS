@@ -26,7 +26,7 @@ class Response
 		// Remove any carriage return / newline in XML response.
 		$body = trim($body);
 
-		return new \SimpleXMLElement($body);
+		return new \SimpleXMLElement($body, LIBXML_COMPACT | LIBXML_PARSEHUGE);
 	}
 
 	public function __call($method, $args = [])
