@@ -11,6 +11,6 @@ class XML
             $string = $string->getBody()->__toString();
         }
 
-        return new \SimpleXMLElement((string) $string);
+        return new \SimpleXMLElement((string) mb_convert_encoding(trim($string), 'UTF-8', 'UTF-8'));
     }
 }

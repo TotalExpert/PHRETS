@@ -24,7 +24,7 @@ class Response
 		$body = (string) $this->response->getBody();
 
 		// Remove any carriage return / newline in XML response.
-		$body = trim($body);
+		$body = mb_convert_encoding(trim($body), 'UTF-8', 'UTF-8');
 
 		return new \SimpleXMLElement($body, LIBXML_COMPACT | LIBXML_PARSEHUGE);
 	}
